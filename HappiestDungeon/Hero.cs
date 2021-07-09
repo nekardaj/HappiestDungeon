@@ -6,7 +6,11 @@ namespace HappiestDungeon
 {
     class Hero
     {
-        public int Maxactive
+        public void TargetedBy(Ability ability) //Each character takes care of spells aimed at them after this gets called
+        {
+            
+        }
+        public int Maxactive //maybe static max
         {
             get { return Maxactive; }
         }

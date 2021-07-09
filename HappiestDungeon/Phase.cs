@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HappiestDungeon
 {
-    enum Phasetype {Combat,Encounter,Transit, Bossfight}; //type of Phase(fight)
+    enum Phasetype {Combat, Encounter, Looting, Setup, Transit, Bossfight}; //type of Phase
     class Phase
     {
         Phasetype Phasetype;
