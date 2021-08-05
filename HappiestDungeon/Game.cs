@@ -15,8 +15,23 @@ namespace HappiestDungeon
         {
             get;
         }
+        Phase Phase;
         
+        public void Run()
+        {
+            Phase = new Phase(Phasetype.Transit);
+            while(Update())
+            {
+                //either process phase or maybe use dictionary<Phasetype,Func> and pass it in constr of Game
+            }
+        }
+        string Outro; //after game is over it holds the prompt to be printed
 
+        public bool Update() //executes one step of the game
+        {
+
+            return false;
+        }
         public Game() //static data can we adressed directly
         {
             
