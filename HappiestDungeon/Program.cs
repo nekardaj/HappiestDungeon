@@ -15,7 +15,11 @@ namespace HappiestDungeon
                 dict.Add(effects, 5);
             }
             dict.TryGetValue(StatusEffects.Armored, out int val);
+            Map map = new Map();
+            map.GenerateMap();
+            map.PrintMap();
             Console.WriteLine(val);
+            
         }
     }
 }
