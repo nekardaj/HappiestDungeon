@@ -7,6 +7,7 @@ namespace HappiestDungeon
     {
         static void Main(string[] args)
         {
+            /*
             Dictionary<StatusEffects, int> dict= new Dictionary<StatusEffects, int> { };
             Console.WriteLine("You died and failed your quest!");
             foreach (StatusEffects effects in (StatusEffects[])Enum.GetValues(typeof(StatusEffects)))
@@ -19,6 +20,10 @@ namespace HappiestDungeon
             map.GenerateMap();
             map.PrintMap();
             Console.WriteLine(val);
+            */
+            Phasetype type = Phasetype.Encounter;
+            Action<Game> a = Data.PhaseProcessors[type];
+            a(null);
             
         }
     }

@@ -31,7 +31,11 @@ namespace HappiestDungeon
 
         public bool Update() //executes one step of the game
         {
-
+            switch (Phase)
+            {
+                default:
+                    break;
+            }
             return false;
         }
         public Game() //static data can we adressed directly

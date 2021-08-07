@@ -16,10 +16,15 @@ namespace HappiestDungeon
         {
             new List<int>(){4,7,8},
         };
-        public static readonly Dictionary<Phasetype,Func<Game>> PhaseProcessors = new Dictionary<Phasetype, Func<Game>>
+        //private static readonly Action<Game> p = (Game game) => {  };
+        public static readonly Dictionary<Phasetype, Action<Game>> PhaseProcessors = new Dictionary<Phasetype, Action<Game>>
             {
-               
-            };
+            {Phasetype.Encounter, (Game game) =>
+                {
+                    Console.WriteLine("Action has been made");
+                }
+            }
+        };
 
 
     }
