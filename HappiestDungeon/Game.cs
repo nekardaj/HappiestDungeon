@@ -9,11 +9,13 @@ namespace HappiestDungeon
         public Node Node //all we need to remember is current node, we just need neighbours enumeration
         {
             get;
+            private set;
         }
 
         public Heroes Allies //player controlled group of characters, enemies will be generated at entry time
         {
             get;
+            private set;
         }
         Phase Phase;
         

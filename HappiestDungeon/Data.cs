@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace HappiestDungeon
 {
@@ -15,7 +16,10 @@ namespace HappiestDungeon
         {
             new List<int>(){4,7,8},
         };
-        
+        public static readonly Dictionary<Phasetype,Func<Game>> PhaseProcessors = new Dictionary<Phasetype, Func<Game>>
+            {
+               
+            };
 
 
     }
