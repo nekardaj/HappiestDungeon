@@ -21,7 +21,6 @@ namespace HappiestDungeon
         
         public void Run()
         {
-            Phase = new Phase(Phasetype.Transit);
             while(Update())
             {
                 //either process phase or maybe use dictionary<Phasetype,Func> and pass it in constr of Game
@@ -31,16 +30,37 @@ namespace HappiestDungeon
 
         public bool Update() //executes one step of the game
         {
-            switch (Phase)
+            switch (Phase.Phasetype) //the execution of phase depends on its type
+                //Even after extensions there should be reasonable number of phases
             {
+                case Phasetype.Encounter:
+                    break;
                 default:
                     break;
             }
             return false;
         }
-        public Game() //static data can we adressed directly
+        public Game(Phase phase) //static data can be adressed directly
         {
-            
+            Phase = phase; //enables passing children of Phase
+        }
+
+        /// Batch of functions that process the Phases
+        protected virtual void Transition() //is called when the phase
+        {
+
+        }
+        protected virtual void Encounter()
+        {
+
+        }
+        protected virtual void Setup()
+        {
+
+        }
+        protected virtual void Looting()
+        {
+
         }
     }
 }

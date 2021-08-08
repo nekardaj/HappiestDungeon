@@ -8,12 +8,20 @@ namespace HappiestDungeon
     //there is currently no looting
     class Phase
     {
-        static Dictionary<Phasetype, Phasetype> Transitions = new Dictionary<Phasetype, Phasetype> 
+        protected static readonly Dictionary<Phasetype, Phasetype> Transitions = new Dictionary<Phasetype, Phasetype> 
         { 
-            { Phasetype.Encounter, Phasetype.Setup },  { Phasetype.Setup, Phasetype.Transit},  { Phasetype.Transit, Phasetype.Encounter },
-            { Phasetype.Encounter, Phasetype.Setup },  { Phasetype.Encounter, Phasetype.Encounter },  
-        };
-        Phasetype Phasetype;
+            { Phasetype.Encounter, Phasetype.Looting }, { Phasetype.Looting, Phasetype.Setup }, { Phasetype.Setup, Phasetype.Transit},
+            { Phasetype.Transit, Phasetype.Encounter }, { Phasetype.Encounter, Phasetype.Setup },  { Phasetype.Encounter, Phasetype.Encounter },  
+        }; //the transitions should not be changed during game
+        public Phasetype Phasetype
+        {
+            get;
+            private set;
+        }
+        public virtual void NextPhase() //after the phase was executed this switches to the next Phase, virtual in case of complex transitioning
+        {
+            Phasetype = Transitions[Phasetype];
+        }
         
         public Phase(Phasetype phasetype)
         {
