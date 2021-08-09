@@ -4,9 +4,9 @@ using System.Text;
 
 namespace HappiestDungeon
 {
-    class Hero
+    class Hero : ILogging
     {
-        public Hero(bool enemy, int id, int maxHp, int hp, Ability[] abilities)
+        public Hero(bool enemy, int id, int maxHp, int hp, Ability[] abilities, string name)
         {
             Status = new Dictionary<StatusEffects, int> { };
             foreach( StatusEffects effects in (StatusEffects[]) Enum.GetValues(typeof(StatusEffects)))
@@ -18,6 +18,7 @@ namespace HappiestDungeon
             MaxHP = maxHp;
             HP = hp;
             Abilities = abilities;
+            Name = name;
         }
 
         public virtual void TargetedBy(Ability ability) //Each character takes care of spells aimed at them after this gets called
@@ -36,6 +37,10 @@ namespace HappiestDungeon
             }
         }
         public bool Enemy
+        {
+            get;
+        }
+        public string Name
         {
             get;
         }
@@ -65,10 +70,14 @@ namespace HappiestDungeon
         }
         Dictionary<StatusEffects, int> Status;
 
-        private bool AbilityReady(Ability ability) //this could be used to implement cooldowns
+        protected virtual bool AbilityReady(Ability ability) //this could be used to implement cooldowns
         {
             return true;
         }
 
+        public string ReturnDescription() //player will need to choose who to cast spell on
+        {
+            return Name + " HP: " + HP;
+        }
     }
 }

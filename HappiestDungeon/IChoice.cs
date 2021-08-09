@@ -14,6 +14,11 @@ namespace HappiestDungeon
         /// ordered from first added choice to last
         /// </returns>
         int GetChoice(string promt);
+        /// <summary>
+        /// Adds a new choice
+        /// Ilogging is used to extract message for user
+        /// </summary>
+        /// <param name="choice"></param>
         void AddChoice(ILogging choice);
         /// <summary>
         /// empties list of posibilities
