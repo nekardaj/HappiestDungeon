@@ -54,6 +54,10 @@ namespace HappiestDungeon
         {
             return Current;
         }
+        public void SetCurrent(int link) //this allows only movement in desired direction
+        {
+            Current = Current.NextNodes[link];
+        }
 
         private List<Node> Nodes;
     }

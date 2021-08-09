@@ -6,10 +6,9 @@ namespace HappiestDungeon
 {
     class Game
     {
-        public Node Node //all we need to remember is current node, we just need neighbours enumeration
+        public Map Map //all we need to remember is current node, we just need neighbours enumeration
         {
             get;
-            private set;
         }
 
         public Heroes Allies //player controlled group of characters, enemies will be generated at entry time
@@ -40,15 +39,26 @@ namespace HappiestDungeon
             }
             return false;
         }
-        public Game(Phase phase) //static data can be adressed directly
+        IChoice Input;
+        Igraphics Graphics;
+        public Game(Phase phase, Igraphics graphics, IChoice choice) //static data can be adressed directly
         {
             Phase = phase; //enables passing children of Phase
+            Map = new Map();
+            Map.GenerateMap();
+            Graphics = graphics;
+            Input = choice;
         }
 
         /// Batch of functions that process the Phases
-        protected virtual void Transition() //is called when the phase
+        protected virtual void Transition()
         {
-
+            Input.ResetChoices();
+            foreach (Node node in Map.GetCurrent().NextNodes) //foreach should iterate in the order 0 - lenght-1
+            {
+                Input.AddChoice(node);
+            }
+            Map.SetCurrent(Input.GetChoice("Choose the way to continue.")); //passed is number of link used(prevents travel in opposite dir)
         }
         protected virtual void Encounter()
         {
@@ -58,7 +68,7 @@ namespace HappiestDungeon
         {
 
         }
-        protected virtual void Looting()
+        protected virtual void Looting() //no loot for now
         {
 
         }
