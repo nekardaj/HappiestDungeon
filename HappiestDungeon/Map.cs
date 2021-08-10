@@ -11,7 +11,7 @@ namespace HappiestDungeon
         {
             Nodes = new List<Node>();
         }
-        public virtual void GenerateMap() //generates nodes from stattic data
+        public virtual void GenerateMap() //generates nodes from static data
         {
             int size = Data.Map.Length;
             for (int i = 0; i < size; i++)

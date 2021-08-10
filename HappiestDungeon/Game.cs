@@ -39,8 +39,8 @@ namespace HappiestDungeon
             }
             return false;
         }
-        IChoice Input;
-        Igraphics Graphics;
+        readonly IChoice Input;
+        readonly Igraphics Graphics;
         public Game(Phase phase, Igraphics graphics, IChoice choice) //static data can be adressed directly
         {
             Phase = phase; //enables passing children of Phase
@@ -62,6 +62,19 @@ namespace HappiestDungeon
         }
         protected virtual void Encounter()
         {
+            Heroes GenerateEnemies(NodeType type)
+            {
+                
+                return null;
+            }
+
+            NodeType curr = Map.GetCurrent().Type;
+            if ( curr == NodeType.Combat)
+            {
+                Random rnd = new Random();
+                Combat.Fight(Allies);
+            }
+            
 
         }
         protected virtual void Setup()
