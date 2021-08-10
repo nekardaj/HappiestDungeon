@@ -9,13 +9,17 @@ namespace HappiestDungeon
         public int NextID; //holds the lowest possible unique hero ID, removed heroes are iqnored here
         public int GetHeroCount()
         {
-            return NextID;
+            return HeroList.Count;
         }
-        private List<Hero> HeroList;
+
+        public List<Hero> HeroList
+        {
+            get;
+        }
         public Heroes (Hero[] heroes)
         {
             this.HeroList.AddRange(heroes);
-            NextID += heroes.Length;
+            NextID = heroes.Length;
         }
         public void AddHero(Hero hero)
         {

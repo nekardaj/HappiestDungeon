@@ -60,22 +60,34 @@ namespace HappiestDungeon
             }
             Map.SetCurrent(Input.GetChoice("Choose the way to continue.")); //passed is number of link used(prevents travel in opposite dir)
         }
-        protected virtual void Encounter()
+        protected virtual bool Encounter() //returns if player survived encounter
         {
             Heroes GenerateEnemies(NodeType type)
             {
                 
+
                 return null;
             }
 
             NodeType curr = Map.GetCurrent().Type;
+            if (curr == NodeType.Boss)
+            {
+                Heroes enemies = new Heroes(new Hero[]{Data.Boss});
+            }
             if ( curr == NodeType.Combat)
             {
-                Random rnd = new Random();
-                Combat.Fight(Allies);
+                Heroes enemies = GenerateEnemies(curr);
+                if (Combat.Fight(Allies, enemies, this))
+                {
+                    return true;
+                }
+                return false;
             }
-            
-
+            if (curr==NodeType.Event)
+            {
+                return true;
+            }
+            return false;
         }
         protected virtual void Setup()
         {

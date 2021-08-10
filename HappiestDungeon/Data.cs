@@ -26,6 +26,8 @@ namespace HappiestDungeon
             }
         };
 
+        public static readonly Hero Boss = null;
+
 
     }
 }
