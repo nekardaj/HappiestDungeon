@@ -73,6 +73,11 @@ namespace HappiestDungeon
             if (curr == NodeType.Boss)
             {
                 Heroes enemies = new Heroes(new Hero[]{Data.Boss});
+                if (Combat.Fight(Allies, enemies, this))
+                {
+                    return true;
+                }
+                return false;
             }
             if ( curr == NodeType.Combat)
             {
