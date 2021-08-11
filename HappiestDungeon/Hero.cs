@@ -21,10 +21,15 @@ namespace HappiestDungeon
             Name = name;
         }
 
-        public virtual bool TargetedBy(Ability ability) //Each character takes care of spells aimed at them after this gets called
+        public virtual bool TargetedBy(Ability ability, Hero caster) //Each character takes care of spells aimed at them after this gets called
         // if we want to add more complex abilities redefinition will be reqd
         //return value indicates wheter hero survived the ability (true = survived)
         {
+            //TODO: calculate dmg based on statuses
+            if(Enemy ^ caster.Enemy) //if caster and target are in different team it deals dmg else it heals
+            {
+
+            }
             //Status.TryGetValue(StatusEffects.Armored, out int armored);
             return HP > 0;
         }
@@ -70,7 +75,11 @@ namespace HappiestDungeon
         {
             get;
         }
-        Dictionary<StatusEffects, int> Status;
+        public Dictionary<StatusEffects, int> Status
+        {
+            get;
+            private set;
+        }
 
         protected virtual bool AbilityReady(Ability ability) //this could be used to implement cooldowns
         {
