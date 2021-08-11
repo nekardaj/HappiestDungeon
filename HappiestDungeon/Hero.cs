@@ -21,13 +21,15 @@ namespace HappiestDungeon
             Name = name;
         }
 
-        public virtual void TargetedBy(Ability ability) //Each character takes care of spells aimed at them after this gets called
+        public virtual bool TargetedBy(Ability ability) //Each character takes care of spells aimed at them after this gets called
         // if we want to add more complex abilities redefinition will be reqd
+        //return value indicates wheter hero survived the ability (true = survived)
         {
             //Status.TryGetValue(StatusEffects.Armored, out int armored);
+            return HP > 0;
         }
 
-        public virtual void TakeTurn(Game game, Heroes heroes) //maybe just a pointer to the input class, can be redefined for smarter ability choice
+        public virtual void TakeTurn(Game game, Heroes allies, Heroes enemies) //maybe just a pointer to the input class, can be redefined for smarter ability choice
         {
             if (Enemy)
             {
@@ -75,9 +77,18 @@ namespace HappiestDungeon
             return true;
         }
 
-        public string ReturnDescription() //player will need to choose who to cast spell on
+        public virtual string ReturnDescription() //player will need to choose who to cast spell on
         {
-            return Name + " HP: " + HP;
+            string statuses="";
+            foreach (KeyValuePair<StatusEffects,int> status in Status)
+            {
+                if (status.Value != 0)
+                {
+                    statuses += String.Format("\nThe {0} is {1} for {2} turns", Enemy? "enemy":"ally",status.Key.ToString(),status.Value);
+                }
+            }
+
+            return $"{Name} HP: {HP} {statuses}";
         }
     }
 }

@@ -21,15 +21,15 @@ namespace HappiestDungeon
             while (allies.GetHeroCount() > 0 && enemies.GetHeroCount() > 0)
             {
                 Hero actingHero = TurnOrder.Dequeue();
-                if (actingHero.HP > 0)
+                if (actingHero.HP > 0) //combat needs to end as soon as one side is completely dead -> hero targeted by ability should return if he survived and get removed in case they died
+                //otherwise player could be able to cast spells before game found out all enemies are dead
                 {
-                    actingHero.TakeTurn(game, allies); //TODO: pass enemies too
+                    actingHero.TakeTurn(game, allies, enemies);
                     TurnOrder.Enqueue(actingHero); 
                 }
-                else
-                {
-                    allies.RemoveHero(actingHero); //maybe in taketurn
-                }
+                /*
+                else {allies.RemoveHero(actingHero);} //now is taken care of in take turn
+                */
             }
             //Targeted by should return whether hero survived or not and the we can remove him from list, if its empty fight is over
             if(allies.GetHeroCount()==0)
