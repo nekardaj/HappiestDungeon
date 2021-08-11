@@ -20,7 +20,6 @@ namespace HappiestDungeon
                 //otherwise player could be able to cast spells before game found out all enemies are dead
                 {
                     actingHero.TakeTurn(game, allies, enemies);
-                    TurnOrder.Enqueue(actingHero); 
                 }
                 /*
                 else {allies.RemoveHero(actingHero);} //now is taken care of in take turn
