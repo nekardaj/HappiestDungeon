@@ -8,19 +8,13 @@ namespace HappiestDungeon
     {
         public static bool Fight(Heroes allies, Heroes enemies, Game game) //processes combat and returns true if player won the fight(=game goes on)
         {
-            foreach (Hero hero in allies.HeroList)
-            {
-                TurnOrder.Enqueue(hero);
-            }
-            foreach (Hero hero in enemies.HeroList)
-            {
-                TurnOrder.Enqueue(hero);
-            }
+            TurnOrder.AddHeroes(allies);
+            TurnOrder.AddHeroes(enemies);
             //adds all combatants into queue
 
             while (allies.GetHeroCount() > 0 && enemies.GetHeroCount() > 0)
             {
-                Hero actingHero = TurnOrder.Dequeue();
+                Hero actingHero = TurnOrder.GetNext();
                 if (actingHero.HP > 0)
                 {
                     actingHero.TakeTurn(game, allies); //TODO: pass enemies too
@@ -38,8 +32,7 @@ namespace HappiestDungeon
             }
             return true;//player won
         }
-
-        static Queue<Hero> TurnOrder = new Queue<Hero>();
+        static ITurnOrder TurnOrder = new SimpleQueue();
         //we could use simpler data structures(cyclic array/list) but we would need to solve some special cases
     }
 }
