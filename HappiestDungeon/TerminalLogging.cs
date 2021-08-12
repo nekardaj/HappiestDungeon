@@ -2,6 +2,7 @@ using System;
 
 namespace HappiestDungeon
 {
+    enum LastAction {Transit,CombatStart, ActionMade, CombatOver, Looting, SetupStart, SetupChoiceMade };
     public class TerminalLogging : Igraphics
     {
         public void Render()
@@ -9,9 +10,9 @@ namespace HappiestDungeon
             Console.Clear();
         }
 
-        public void UpdateData()
+        public virtual void UpdateData()
         {
-            
+            //TODO Save LastAction and its context into some Game property   
         }
     }
 }
