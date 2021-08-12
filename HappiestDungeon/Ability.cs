@@ -24,11 +24,11 @@ namespace HappiestDungeon
             protected set;
         }
 
-        bool TargetsEnemy
+        public bool TargetsEnemy
         {
             get;
         }
-        int Dmg //if targets ally =healing amount
+        public int Dmg //if targets ally =healing amount
         {
             get;
         }
