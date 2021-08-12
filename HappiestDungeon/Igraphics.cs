@@ -1,6 +1,6 @@
 namespace HappiestDungeon
 {
-    public interface Igraphics
+    interface Igraphics
     {
         /// <summary>
         /// Presents its current state to the user, before calling this UpdateData should be called if anything changes
@@ -9,7 +9,7 @@ namespace HappiestDungeon
         /// <summary>
         /// Updates the data needed for rendering
         /// </summary>
-        void UpdateData();
+        void UpdateData(Game game);
         
     }
 }

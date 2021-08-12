@@ -17,7 +17,16 @@ namespace HappiestDungeon
             private set;
         }
         Phase Phase;
-        
+        public Action LastAction //Terminal loging reads this to properly display output based on type of action
+        {
+            get;
+            protected set;
+        }
+        public string ActionDescr
+        {
+            get;
+            set; //combat needs to have acces and modify it
+        }
         public void Run()
         {
             while(Update())
@@ -51,6 +60,7 @@ namespace HappiestDungeon
         }
 
         /// Batch of functions that process the Phases
+        /// TODO add LastAction string modification
         protected virtual void Transition()
         {
             Input.ResetChoices();

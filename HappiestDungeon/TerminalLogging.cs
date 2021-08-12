@@ -2,17 +2,21 @@ using System;
 
 namespace HappiestDungeon
 {
-    enum LastAction {Transit,CombatStart, ActionMade, CombatOver, Looting, SetupStart, SetupChoiceMade };
-    public class TerminalLogging : Igraphics
+    class TerminalLogging : Igraphics
     {
-        public void Render()
+        public virtual void Render()
         {
             Console.Clear();
+            Console.WriteLine(Log);
         }
 
-        public virtual void UpdateData()
+        public virtual void UpdateData(Game game)
         {
-            //TODO Save LastAction and its context into some Game property   
+            Log = game.ActionDescr;
+            //the method that requires to print smth takes care of the string prep
+            //game is passed in case more data need to be read
         }
+        protected string Log;
+
     }
 }
