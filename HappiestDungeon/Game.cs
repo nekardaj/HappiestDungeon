@@ -48,15 +48,8 @@ namespace HappiestDungeon
             }
             return false;
         }
-
-        public IChoice Input
-        {
-            get;
-        }
-        public Igraphics Graphics
-        {
-            get;
-        }
+        readonly IChoice Input;
+        readonly Igraphics Graphics;
         public Game(Phase phase, Igraphics graphics, IChoice choice) //static data can be adressed directly
         {
             Phase = phase; //enables passing children of Phase
@@ -64,6 +57,10 @@ namespace HappiestDungeon
             Map.GenerateMap();
             Graphics = graphics;
             Input = choice;
+        }
+        protected virtual void GenerateAllies()
+        {
+
         }
 
         /// Batch of functions that process the Phases
@@ -96,8 +93,10 @@ namespace HappiestDungeon
                 Heroes enemies = new Heroes(new Hero[]{Data.Boss});
                 if (Combat.Fight(Allies, enemies, this))
                 {
-                    return true;
+                    Outro = "You have done it. The evil is banished for now. Well done.";
+                    return false; //boss is down game ends anyway
                 }
+                Outro = "You were close. Really damn close. Your life and journey end here";
                 return false;
             }
             if ( curr == NodeType.Combat)
@@ -107,6 +106,7 @@ namespace HappiestDungeon
                 {
                     return true;
                 }
+                Outro = "You were slain. Some things were just not meant to be.";
                 return false;
             }
             if (curr==NodeType.Event)
@@ -125,7 +125,7 @@ namespace HappiestDungeon
                 Input.ResetChoices();
                 Input.AddChoice(new BoolChoice(true));
                 Input.AddChoice(new BoolChoice(false));
-                bool setspells = Input.GetChoice($"Do you want to reselect abilities of {hero.Name}?") == 0;
+                bool setspells = Input.GetChoice("Do you want to reselect your abilities") == 0;
                 if (setspells)
                 {
                     hero.ReselectSpells(this);

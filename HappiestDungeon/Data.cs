@@ -25,6 +25,15 @@ namespace HappiestDungeon
                 }
             }
         };
+        public static readonly Heroes Allies = new Heroes(new Hero[]
+        {
+            new Hero(false, 0, 200, 200, 
+                new Ability[]
+                {
+                    new Ability(20, true, new List<Tuple<StatusEffects, int>>{ }, ),
+
+                }, "Ironchad")
+        });
 
         public static readonly Hero Boss = null;
 
