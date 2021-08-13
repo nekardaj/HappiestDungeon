@@ -69,9 +69,13 @@ namespace HappiestDungeon
                 Input.AddChoice(node);
             }
             Map.SetCurrent(Input.GetChoice("Choose the way to continue.")); //passed is number of link used(prevents travel in opposite dir)
+            Node current = Map.GetCurrent();
+            //info about arrival will be printed together with event/combat info 
         }
         protected virtual bool Encounter() //returns if player survived encounter
         {
+            ActionDescr = "You arrived to the room the noise came from. You ready your blade or whatever.";
+            Graphics.Render();
             Heroes GenerateEnemies(NodeType type)
             {
                 
@@ -100,13 +104,27 @@ namespace HappiestDungeon
             }
             if (curr==NodeType.Event)
             {
+                ActionDescr = "You arrive to the mysterious room.";
+                Graphics.Render();
                 return true;
             }
             return false;
         }
         protected virtual void Setup()
         {
+            ActionDescr = "In case you want to use different abilities now is the time.";
+            foreach (Hero hero in Allies.HeroList)
+            {
+                Input.ResetChoices();
+                Input.AddChoice(new BoolChoice(true));
+                Input.AddChoice(new BoolChoice(false));
+                bool setspells = Input.GetChoice("Do you want to reselect your abilities") == 0;
+                if (setspells)
+                {
+                    hero.ReselectSpells(this);
+                }
 
+            }
         }
         protected virtual void Looting() //no loot for now
         {

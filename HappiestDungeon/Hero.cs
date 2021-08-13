@@ -67,7 +67,10 @@ namespace HappiestDungeon
             }
             return HP > 0;
         }
-
+        public virtual void ReselectSpells(Game game)
+        {
+            //TODO
+        }
         public virtual void TakeTurn(Game game, Heroes allies, Heroes enemies) //maybe just a pointer to the input class, can be redefined for smarter ability choice
         {
             //TODO decrease duration of statuses

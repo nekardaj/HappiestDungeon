@@ -19,9 +19,9 @@ namespace HappiestDungeon
                 throw new InvalidOperationException("There are no choices available.");
                 //if we allowed this case to run do while loop would be infinite
             }
+            Console.WriteLine(prompt);
             for (int i = 0; i < Choices.Count; i++)
             {
-                Console.WriteLine(prompt);
                 Console.WriteLine((i + 1)+ ") " + Choices[i].ReturnDescription());
             }
             int retval = -1;
