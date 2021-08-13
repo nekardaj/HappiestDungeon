@@ -30,10 +30,35 @@ namespace HappiestDungeon
             new Hero(false, 0, 200, 200, 
                 new Ability[]
                 {
-                    new Ability(20, true, new List<Tuple<StatusEffects, int>>{ }, ""),
+                    new Ability(20, true, new List<Tuple<StatusEffects, int>>
+                    { 
+                        new Tuple<StatusEffects, int>(StatusEffects.Vurneable,2),new Tuple<StatusEffects, int>(StatusEffects.Weak,2)
+                    },"Grin"),
+                    new Ability(20, false, new List<Tuple<StatusEffects, int>>
+                    {
+                        new Tuple<StatusEffects, int>(StatusEffects.Armored,3),new Tuple<StatusEffects, int>(StatusEffects.Inspired,3)
+                    },"Heartwarming hug"),
+                    new Ability(25, false, new List<Tuple<StatusEffects, int>>
+                    {
+                        new Tuple<StatusEffects, int>(StatusEffects.Poisoned,3)
+                    },"Love is in the air"),
+                    new Ability(45, true, new List<Tuple<StatusEffects, int>>
+                    {
+                        
+                    },"Wide smile"),
 
                 }, "Ironchad")
         });
+        public static readonly Ability[] abilities = new Ability[]
+        {
+            //TODO
+        };
+
+        public static readonly Hero[] Enemies = new Hero[]
+        {
+            new Hero(true,0,150,150,null, "Stormy cloud")
+        };
+            //class enemy that overrides taketurn could be sol to ai
 
         public static readonly Hero Boss = null;
 
