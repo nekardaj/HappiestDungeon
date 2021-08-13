@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HappiestDungeon
@@ -19,6 +20,7 @@ namespace HappiestDungeon
             HP = hp;
             Abilities = abilities;
             Name = name;
+            Actives = abilities.Take(Maxactive).ToArray(); //by default we take first spells as the starting ones
         }
 
         protected static readonly Tuple<StatusEffects, float>[] CasterMultipliers = new Tuple<StatusEffects, float>[] {new Tuple<StatusEffects, float>(StatusEffects.Inspired,1.25f),
@@ -67,9 +69,27 @@ namespace HappiestDungeon
             }
             return HP > 0;
         }
-        public virtual void ReselectSpells(Game game)
+        public virtual void ReselectSpells(Game game) //we pass pointer to game in case of redefinition
         {
             //TODO
+            for (int i = 0; i < Maxactive; i++)
+            {
+                game.Input.ResetChoices();
+                game.Input.AddChoice(new BoolChoice(true));
+                game.Input.AddChoice(new BoolChoice(false));
+                bool reset = game.Input.GetChoice($"Do you want to choose different spell for this slot?\n Currently: {Actives[i].ReturnDescription()}")==0;
+                if (reset)
+                {
+                    game.Input.ResetChoices();
+                    foreach (var ability in Abilities)
+                    {
+                        game.Input.AddChoice(ability);    
+                    }
+
+                    Ability newAbility = Abilities[game.Input.GetChoice("Choose the ability to replace the old one with.")]; //if the user chooses spell multiple times its their problem
+                    Actives[i] = newAbility;
+                }
+            }
         }
         public virtual void TakeTurn(Game game, Heroes allies, Heroes enemies) //maybe just a pointer to the input class, can be redefined for smarter ability choice
         {

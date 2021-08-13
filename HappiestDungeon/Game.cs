@@ -48,8 +48,15 @@ namespace HappiestDungeon
             }
             return false;
         }
-        readonly IChoice Input;
-        readonly Igraphics Graphics;
+
+        public IChoice Input
+        {
+            get;
+        }
+        public Igraphics Graphics
+        {
+            get;
+        }
         public Game(Phase phase, Igraphics graphics, IChoice choice) //static data can be adressed directly
         {
             Phase = phase; //enables passing children of Phase
@@ -118,7 +125,7 @@ namespace HappiestDungeon
                 Input.ResetChoices();
                 Input.AddChoice(new BoolChoice(true));
                 Input.AddChoice(new BoolChoice(false));
-                bool setspells = Input.GetChoice("Do you want to reselect your abilities") == 0;
+                bool setspells = Input.GetChoice($"Do you want to reselect abilities of {hero.Name}?") == 0;
                 if (setspells)
                 {
                     hero.ReselectSpells(this);
