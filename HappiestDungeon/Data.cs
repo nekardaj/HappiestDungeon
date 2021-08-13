@@ -30,7 +30,7 @@ namespace HappiestDungeon
             new Hero(false, 0, 200, 200, 
                 new Ability[]
                 {
-                    new Ability(20, true, new List<Tuple<StatusEffects, int>>{ }, ),
+                    new Ability(20, true, new List<Tuple<StatusEffects, int>>{ }, ""),
 
                 }, "Ironchad")
         });
