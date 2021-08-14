@@ -33,6 +33,10 @@ namespace HappiestDungeon
             {
                 //either process phase or maybe use dictionary<Phasetype,Func> and pass it in constr of Game
             }
+
+            ActionDescr = Outro;
+            Graphics.UpdateData(this);
+            Graphics.Render();
         }
         string Outro; //after game is over it holds the prompt to be printed
 
@@ -42,9 +46,16 @@ namespace HappiestDungeon
                 //Even after extensions there should be reasonable number of phases
             {
                 case Phasetype.Encounter:
-                    break;
-                default:
-                    break;
+                    return Encounter(); //reurns true if player survived
+                case Phasetype.Looting:
+                    Looting();
+                    return true; //one cant die looting, changing spells or travelling to node
+                case Phasetype.Setup:
+                    Setup();
+                    return true;
+                case Phasetype.Transit:
+                    Transition();
+                    return true;
             }
             return false;
         }
@@ -86,11 +97,13 @@ namespace HappiestDungeon
         {
             ActionDescr = "You arrived to the room the noise came from. You ready your blade or whatever.";
             Graphics.Render();
-            Heroes GenerateEnemies(NodeType type)
+            Heroes GenerateEnemies()
             {
-                
                 //TODO
-                return null;
+                Random r = new Random();
+                HeroTemplate template = Data.EnemyTemplates[r.Next(Data.EnemyTemplates.Length)];
+                Heroes enemies = new Heroes(new Hero[] {new Hero(template.Enemy,template.ID,template.MaxHP,template.MaxHP,template.Abilities,template.Name)}); //picks random template from Data and creates enemy
+                return enemies; 
             }
 
             NodeType curr = Map.GetCurrent().Type;
@@ -107,7 +120,7 @@ namespace HappiestDungeon
             }
             if ( curr == NodeType.Combat)
             {
-                Heroes enemies = GenerateEnemies(curr);
+                Heroes enemies = GenerateEnemies();
                 if (Combat.Fight(Allies, enemies, this))
                 {
                     return true;
