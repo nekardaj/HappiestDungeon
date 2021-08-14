@@ -29,6 +29,7 @@ namespace HappiestDungeon
         }
         public void Run()
         {
+            GenerateAllies();
             while(Update())
             {
                 //either process phase or maybe use dictionary<Phasetype,Func> and pass it in constr of Game
@@ -77,7 +78,7 @@ namespace HappiestDungeon
         }
         protected virtual void GenerateAllies()
         {
-
+            Allies = Data.Allies;
         }
 
         /// Batch of functions that process the Phases
@@ -91,10 +92,12 @@ namespace HappiestDungeon
             }
             Map.SetCurrent(Input.GetChoice("Choose the way to continue.")); //passed is number of link used(prevents travel in opposite dir)
             Node current = Map.GetCurrent();
+            Phase.NextPhase();
             //info about arrival will be printed together with event/combat info 
         }
         protected virtual bool Encounter() //returns if player survived encounter
         {
+            Phase.NextPhase();
             ActionDescr = "You arrived to the room the noise came from. You ready your blade or whatever.";
             Graphics.Render();
             Heroes GenerateEnemies()
@@ -138,6 +141,7 @@ namespace HappiestDungeon
         }
         protected virtual void Setup()
         {
+            Phase.NextPhase();
             ActionDescr = "In case you want to use different abilities now is the time.";
             foreach (Hero hero in Allies.HeroList)
             {
@@ -154,7 +158,7 @@ namespace HappiestDungeon
         }
         protected virtual void Looting() //no loot for now
         {
-
+            Phase.NextPhase();
         }
     }
 }

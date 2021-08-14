@@ -8,7 +8,11 @@ namespace HappiestDungeon
     {
         public static bool Fight(Heroes allies, Heroes enemies, Game game) //processes combat and returns true if player won the fight(=game goes on)
         {
-            TurnOrder.AddHeroes(allies);
+            foreach (Hero hero in allies.HeroList)
+            {
+                hero.CombatStart(); //at start of combat allies regain some of their hp
+                TurnOrder.AddHero(hero);
+            }
             TurnOrder.AddHeroes(enemies);
             //adds all combatants into queue
 
@@ -20,6 +24,7 @@ namespace HappiestDungeon
                 //otherwise player could be able to cast spells before game found out all enemies are dead
                 {
                     actingHero.TakeTurn(game, allies, enemies);
+                    TurnOrder.AddHero(actingHero);
                 }
                 /*
                 else {allies.RemoveHero(actingHero);} //now is taken care of in take turn

@@ -11,7 +11,7 @@ namespace HappiestDungeon
         protected static readonly Dictionary<Phasetype, Phasetype> Transitions = new Dictionary<Phasetype, Phasetype> 
         { 
             { Phasetype.Encounter, Phasetype.Looting }, { Phasetype.Looting, Phasetype.Setup }, { Phasetype.Setup, Phasetype.Transit},
-            { Phasetype.Transit, Phasetype.Encounter }, { Phasetype.Encounter, Phasetype.Setup },  { Phasetype.Encounter, Phasetype.Encounter },  
+            { Phasetype.Transit, Phasetype.Encounter },
         }; //the transitions should not be changed during game
         public Phasetype Phasetype
         {

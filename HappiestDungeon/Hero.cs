@@ -7,6 +7,7 @@ namespace HappiestDungeon
 {
     class Hero : ILogging
     {
+        static readonly int PoisonDmg = 9; //when changing make sure raw dmg spell doesnt deal more than poison based ones
         public Hero(bool enemy, int id, int maxHp, int hp, Ability[] abilities, string name)
         {
             Status = new Dictionary<StatusEffects, int> { };
@@ -93,13 +94,75 @@ namespace HappiestDungeon
         }
         public virtual void TakeTurn(Game game, Heroes allies, Heroes enemies) //maybe just a pointer to the input class, can be redefined for smarter ability choice
         {
-            //TODO decrease duration of statuses
-            if (Enemy)
+            //poison does smth on decrease
+            if(Status[StatusEffects.Poisoned]>0)
+            {
+                HP -= PoisonDmg;
+            }
+            if (HP <= 0) //hero could die after poison tick, we need to remove him from combact
+            {
+                if (Enemy)
+                {
+                    enemies.RemoveHero(this);
+                }
+                else
+                {
+                    allies.RemoveHero(this);
+                }
+                return; //hero cant take turn they died
+            }
+            foreach (KeyValuePair<StatusEffects,int> status in Status)
+            {
+                if (status.Value > 0) { Status[status.Key] = status.Value - 1; } //decrease duration by 1
+            }
+            //decrease duration of statuses - done
+            game.ActionDescr=$"It is {Name}´s turn.\n";
+            if (!Enemy)
+            {
+                string combatants = "Currently standing: ";
+                foreach (Hero hero in allies.HeroList)
+                {
+                    combatants += hero.ReturnDescription();
+                }
+                foreach (Hero hero in enemies.HeroList)
+                {
+                    combatants += hero.ReturnDescription();
+                }
+                game.ActionDescr += combatants; //displays the info
+                game.Graphics.Render();
+                game.Input.ResetChoices();
+                foreach (var ability in Actives)
+                {
+                    game.Input.AddChoice(ability);
+                }
+
+                Ability casted = Actives[game.Input.GetChoice("Choose the ability to cast.")];
+                game.Input.ResetChoices();
+                //TODO choosing target throws exeception
+                //ally targets enemy -> enemies
+                foreach (var hero in casted.TargetsEnemy ? enemies.HeroList : allies.HeroList)
+                {
+                    game.Input.AddChoice(hero);
+                }
+                int targetIndex = game.Input.GetChoice("Choose the target.");
+                Hero target = casted.TargetsEnemy ? enemies.HeroList[targetIndex] : allies.HeroList[targetIndex];
+            }
+            else
             {
                 Random random = new Random();
-                int ability = random.Next(0, Abilities.Length); //we consider that enemy spells dont have cd
-                //choose a target depending on TargetsEnemy
+                int abilityIndex = random.Next(0, Abilities.Length); //we consider that enemy spells dont have cd
+                                                                     //choose a target depending on TargetsEnemy
+                Ability ability = Abilities[abilityIndex];
+                if(ability.TargetsEnemy) //enemy uses on enemy -> allies
+                {
+                    allies.HeroList[random.Next(allies.HeroList.Count)].TargetedBy(ability, this); //uses spell on random enemy
+                }
+                return;
             }
+        }
+        public virtual void CombatStart() //things to be done at start of combat, for now just heal if not full
+        {
+            HP = Math.Min(MaxHP, HP + MaxHP >> 2); //heals for 1/4 of maxhp
         }
         public bool Enemy
         {

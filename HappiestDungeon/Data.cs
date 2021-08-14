@@ -71,10 +71,18 @@ namespace HappiestDungeon
                 }, "Ironchad")
             
         );
-        
+
         public static readonly Ability[] abilities = new Ability[]
         {
             //TODO
+            new Ability
+            (
+                30,true,new List<Tuple<StatusEffects, int>>{ new Tuple<StatusEffects, int> (StatusEffects.Vurneable,2) }, "Nightmare"
+            ),
+            new Ability
+            (
+                40,true,new List<Tuple<StatusEffects, int>>{}, "Wild strike" //list cant be null
+            )
         };
         /*
         public static readonly Hero[] Enemies = new Hero[]
@@ -84,7 +92,7 @@ namespace HappiestDungeon
         */
         public static readonly HeroTemplate[] EnemyTemplates = new HeroTemplate[]
         {
-            new HeroTemplate(true,0,150,null,"Stormy cloud")
+            new HeroTemplate(true,0,150,new Ability[] {abilities[0], abilities[1] },"Stormy cloud")
         };
             //class enemy that overrides taketurn could be sol to ai
 
