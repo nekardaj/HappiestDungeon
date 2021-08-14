@@ -18,11 +18,13 @@ namespace HappiestDungeon
         }
         public Heroes (Hero[] heroes)
         {
+            HeroList = new List<Hero> { };
             this.HeroList.AddRange(heroes);
             NextID = heroes.Length;
         }
         public Heroes(Hero hero)
         {
+            HeroList = new List<Hero> { };
             HeroList.Add(hero);
             NextID += 1;
         }

@@ -35,6 +35,7 @@ namespace HappiestDungeon
                 int ID = r.Next(1, Connections.Count);
                 node.AddLink(Nodes[Connections[ID]]);
             }
+            Current = Nodes[0]; //starting node
         }
 
         public void PrintMap() //prints list of links between nodes

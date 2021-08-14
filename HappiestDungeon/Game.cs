@@ -87,7 +87,7 @@ namespace HappiestDungeon
             Input.ResetChoices();
             foreach (Node node in Map.GetCurrent().NextNodes) //foreach should iterate in the order 0 - lenght-1
             {
-                Input.AddChoice(node);
+                if(node!=null) Input.AddChoice(node);
             }
             Map.SetCurrent(Input.GetChoice("Choose the way to continue.")); //passed is number of link used(prevents travel in opposite dir)
             Node current = Map.GetCurrent();

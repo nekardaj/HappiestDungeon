@@ -25,13 +25,15 @@ namespace HappiestDungeon
             Phasetype type = Phasetype.Encounter;
             Action<Game> a = Data.PhaseProcessors[type];
             a(null);*/
-            /*
+            
             Phase phase = new Phase(Phasetype.Transit);
             Game game = new Game(phase, new TerminalLogging(), new TerminalInput());
-            */
+            game.Run();
+            /*
             Map map = new Map();
             map.GenerateMap();
             map.PrintMap();
+            */
         }
     }
 }
