@@ -44,8 +44,10 @@ namespace HappiestDungeon
             }
         };
         */
-        public static readonly Heroes Allies = new Heroes(new Hero[]
-        {
+        
+        public static readonly Heroes Allies = new Heroes
+        (
+            //TODO fix here
             new Hero(false, 0, 200, 200, 
                 new Ability[]
                 {
@@ -64,20 +66,22 @@ namespace HappiestDungeon
                     new Ability(45, true, new List<Tuple<StatusEffects, int>>
                     {
                         
-                    },"Wide smile"),
+                    },"Wide smile")
 
                 }, "Ironchad")
-        });
+            
+        );
+        
         public static readonly Ability[] abilities = new Ability[]
         {
             //TODO
         };
-
+        /*
         public static readonly Hero[] Enemies = new Hero[]
         {
             new Hero(true,0,150,150,null, "Stormy cloud")
         };
-
+        */
         public static readonly HeroTemplate[] EnemyTemplates = new HeroTemplate[]
         {
             new HeroTemplate(true,0,150,null,"Stormy cloud")
