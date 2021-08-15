@@ -49,8 +49,7 @@ namespace HappiestDungeon
             (Heroes allies, Heroes enemies, Boss boss, Game game) =>
             {
                 Random random = new Random();
-                int abilityIndex = random.Next(0, boss.Abilities.Length); //we consider that enemy spells dont have cd
-                                                                     //choose a target depending on TargetsEnemy
+                int abilityIndex = boss.Count() % boss.Abilities.Length; //boss has all abilities active
                 Ability ability = boss.Abilities[abilityIndex];
                 if (ability.TargetsEnemy) //enemy uses on enemy -> allies
                 {
@@ -108,12 +107,29 @@ namespace HappiestDungeon
             (
                 40,true,new List<Tuple<StatusEffects, int>>{}, "Wild strike" //list cant be null
             )
-            /*,
+            ,
             new Ability
             (
-                25, false
+                25, false, new List<Tuple<StatusEffects, int>>
+                {new Tuple<StatusEffects, int> (StatusEffects.Armored,1),
+                    new Tuple<StatusEffects, int> (StatusEffects.Inspired,2)
+                }, "Dark embrace"
+            ),
+            new Ability
+            (
+                25, true, new List<Tuple<StatusEffects, int>>
+                {new Tuple<StatusEffects, int> (StatusEffects.Weak,2),
+                    new Tuple<StatusEffects, int> (StatusEffects.Poisoned,2)
+                }, "Dirty trick"
+            ),
+            new Ability
+            (
+                45, true, new List<Tuple<StatusEffects, int>>
+                {
+                    new Tuple<StatusEffects, int> (StatusEffects.Vurneable,1)
+                }, "Overwhelm"
             )
-            */
+
         };
         /*
         public static readonly Hero[] Enemies = new Hero[]
@@ -123,11 +139,16 @@ namespace HappiestDungeon
         */
         public static readonly HeroTemplate[] EnemyTemplates = new HeroTemplate[]
         {
-            new HeroTemplate(true,0,150,new Ability[] {abilities[0], abilities[1] },"Stormy cloud")
+            new HeroTemplate(true,0,150,new Ability[] {abilities[0], abilities[1] },"Mexican Joker"),
+            new HeroTemplate(true,2,175,new Ability[] {abilities[1], abilities[2] },"ManBearPig")
         };
-            //class enemy that overrides taketurn could be sol to ai
+        //class enemy that overrides taketurn could be sol to ai
 
-        public static readonly Hero Boss = null;
+        public static readonly Hero Boss = new Boss
+            (true,1, 200,200,
+                new Ability[] { Data.abilities[3], Data.abilities[0], Data.abilities[4], Data.abilities[2], },
+                "Professor Chaos",bossAI
+            );
 
 
     }

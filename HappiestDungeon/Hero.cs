@@ -93,7 +93,7 @@ namespace HappiestDungeon
                 }
             }
         }
-        protected virtual void ProcessStatuses(Heroes allies, Heroes enemies)
+        protected virtual bool ProcessStatuses(Heroes allies, Heroes enemies)
         {
             //poison does smth on decrease
             if (Status[StatusEffects.Poisoned] > 0)
@@ -110,7 +110,7 @@ namespace HappiestDungeon
                 {
                     allies.RemoveHero(this);
                 }
-                return; //hero cant take turn they died
+                return false; //hero cant take turn they died
             }
             foreach (StatusEffects effects in (StatusEffects[])Enum.GetValues(typeof(StatusEffects))) //foreach on keyvaluepairs throws exep when modified so we iterate with all effects
             {
@@ -119,11 +119,12 @@ namespace HappiestDungeon
                     Status[effects] = Status[effects] - 1;
                 }
             }
+            return true; //hero survived
             //decrease duration of statuses - done
         }
         public virtual void TakeTurn(Game game, Heroes allies, Heroes enemies) //maybe just a pointer to the input class, can be redefined for smarter ability choice
         {
-            ProcessStatuses(allies, enemies);
+            if (!ProcessStatuses(allies, enemies)) { return; };
             game.ActionDescr=$"It is {Name}´s turn.\n";
             if (!Enemy)
             {
