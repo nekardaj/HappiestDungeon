@@ -58,7 +58,7 @@ namespace HappiestDungeon
             }
             else //caster is friendly - heal
             {
-                HP = Math.Min((int)Math.Round(multiplier * ability.Dmg, MidpointRounding.ToPositiveInfinity), MaxHP); //can heal only to MaxHP
+                HP = Math.Min((int)Math.Round(multiplier * ability.Dmg, MidpointRounding.ToPositiveInfinity) + HP, MaxHP); //can heal only to MaxHP
             }
             //Status.TryGetValue(StatusEffects.Armored, out int armored);
             foreach (Tuple<StatusEffects,int> effect in ability.Effects)
@@ -93,10 +93,10 @@ namespace HappiestDungeon
                 }
             }
         }
-        public virtual void TakeTurn(Game game, Heroes allies, Heroes enemies) //maybe just a pointer to the input class, can be redefined for smarter ability choice
+        protected virtual void ProcessStatuses(Heroes allies, Heroes enemies)
         {
             //poison does smth on decrease
-            if(Status[StatusEffects.Poisoned]>0)
+            if (Status[StatusEffects.Poisoned] > 0)
             {
                 HP -= PoisonDmg;
             }
@@ -112,7 +112,7 @@ namespace HappiestDungeon
                 }
                 return; //hero cant take turn they died
             }
-            foreach( StatusEffects effects in (StatusEffects[]) Enum.GetValues(typeof(StatusEffects))) //foreach on keyvaluepairs throws exep when modified so we iterate with all effects
+            foreach (StatusEffects effects in (StatusEffects[])Enum.GetValues(typeof(StatusEffects))) //foreach on keyvaluepairs throws exep when modified so we iterate with all effects
             {
                 if (Status[effects] > 0)
                 {
@@ -120,6 +120,10 @@ namespace HappiestDungeon
                 }
             }
             //decrease duration of statuses - done
+        }
+        public virtual void TakeTurn(Game game, Heroes allies, Heroes enemies) //maybe just a pointer to the input class, can be redefined for smarter ability choice
+        {
+            ProcessStatuses(allies, enemies);
             game.ActionDescr=$"It is {Name}´s turn.\n";
             if (!Enemy)
             {

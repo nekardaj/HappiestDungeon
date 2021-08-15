@@ -44,6 +44,31 @@ namespace HappiestDungeon
             }
         };
         */
+        // modifying this changes bosses behaviour
+        public static readonly Action<Heroes, Heroes, Boss, Game> bossAI =
+            (Heroes allies, Heroes enemies, Boss boss, Game game) =>
+            {
+                Random random = new Random();
+                int abilityIndex = random.Next(0, boss.Abilities.Length); //we consider that enemy spells dont have cd
+                                                                     //choose a target depending on TargetsEnemy
+                Ability ability = boss.Abilities[abilityIndex];
+                if (ability.TargetsEnemy) //enemy uses on enemy -> allies
+                {
+                    Hero target = allies.HeroList[random.Next(allies.HeroList.Count)];
+                    if (!target.TargetedBy(ability, boss)) //target did not survive(its enemy)
+                    {
+                        allies.RemoveHero(target);
+                    }
+
+                }
+                else
+                {
+                    Hero target = enemies.HeroList[random.Next(enemies.HeroList.Count)];
+                    target.TargetedBy(ability, boss);
+                }
+                return;
+            };
+
         
         public static readonly Heroes Allies = new Heroes
         (
@@ -83,6 +108,12 @@ namespace HappiestDungeon
             (
                 40,true,new List<Tuple<StatusEffects, int>>{}, "Wild strike" //list cant be null
             )
+            /*,
+            new Ability
+            (
+                25, false
+            )
+            */
         };
         /*
         public static readonly Hero[] Enemies = new Hero[]
