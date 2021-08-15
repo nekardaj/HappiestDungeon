@@ -99,6 +99,7 @@ namespace HappiestDungeon
         {
             Phase.NextPhase();
             ActionDescr = "You arrived to the room the noise came from. You ready your blade or whatever.";
+            Graphics.UpdateData(this);
             Graphics.Render();
             Heroes GenerateEnemies()
             {
@@ -127,6 +128,7 @@ namespace HappiestDungeon
                 if (Combat.Fight(Allies, enemies, this))
                 {
                     return true;
+                    ActionDescr = "You won the fight but you need to press on, more enemies are ahead"; //maybe add
                 }
                 Outro = "You were slain. Some things were just not meant to be.";
                 return false;
@@ -134,6 +136,7 @@ namespace HappiestDungeon
             if (curr==NodeType.Event)
             {
                 ActionDescr = "You arrive to the mysterious room.";
+                Graphics.UpdateData(this);
                 Graphics.Render();
                 return true;
             }

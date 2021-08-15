@@ -33,7 +33,7 @@ namespace HappiestDungeon
         // if we want to add more complex abilities redefinition will be reqd
         //return value indicates wheter hero survived the ability (true = survived)
         {
-            //TODO: calculate dmg based on statuses
+            //TODO: fix buff multipliers
             float multiplier = 1f; //no need to use double as we round it anyway
             foreach (Tuple<StatusEffects,float> mul in CasterMultipliers)
             {
@@ -125,7 +125,7 @@ namespace HappiestDungeon
         public virtual void TakeTurn(Game game, Heroes allies, Heroes enemies) //maybe just a pointer to the input class, can be redefined for smarter ability choice
         {
             if (!ProcessStatuses(allies, enemies)) { return; };
-            game.ActionDescr=$"It is {Name}´s turn.\n";
+            game.ActionDescr+=$"\nIt is {Name}´s turn.\n";
             if (!Enemy)
             {
                 string combatants = "Currently standing: ";
@@ -138,6 +138,7 @@ namespace HappiestDungeon
                     combatants += hero.ReturnDescription();
                 }
                 game.ActionDescr += combatants; //displays the info
+                game.Graphics.UpdateData(game);
                 game.Graphics.Render();
                 game.Input.ResetChoices();
                 foreach (var ability in Actives)
@@ -180,6 +181,7 @@ namespace HappiestDungeon
                     Hero target = enemies.HeroList[random.Next(enemies.HeroList.Count)];
                     target.TargetedBy(ability, this);
                 }
+                game.ActionDescr = $"{Name} used: {ability.ReturnDescription()}";
                 return;
             }
         }
@@ -242,7 +244,7 @@ namespace HappiestDungeon
                 }
             }
 
-            return $"{Name} HP: {HP} {statuses}";
+            return $"\n{Name} HP: {HP} {statuses}";
         }
     }
 }

@@ -40,7 +40,7 @@ namespace HappiestDungeon
             {
                 statuses += effect.Item1.ToString() + ": " + effect.Item2 + ", ";
             }
-            return Name + (TargetsEnemy ? " dmg: " : "heal: ") + Dmg + " " + statuses;
+            return Name + (TargetsEnemy ? " dmg: " : " heal: ") + Dmg + " " + statuses;
         }
     }
 }
