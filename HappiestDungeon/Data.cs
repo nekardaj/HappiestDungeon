@@ -59,7 +59,7 @@ namespace HappiestDungeon
                     {
                         new Tuple<StatusEffects, int>(StatusEffects.Armored,3),new Tuple<StatusEffects, int>(StatusEffects.Inspired,3)
                     },"Heartwarming hug"),
-                    new Ability(25, false, new List<Tuple<StatusEffects, int>>
+                    new Ability(25, true, new List<Tuple<StatusEffects, int>>
                     {
                         new Tuple<StatusEffects, int>(StatusEffects.Poisoned,3)
                     },"Love is in the air"),

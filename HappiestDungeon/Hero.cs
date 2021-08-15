@@ -21,6 +21,7 @@ namespace HappiestDungeon
             HP = hp;
             Abilities = abilities;
             Name = name;
+            Maxactive = 4;
             Actives = abilities.Take(Maxactive).ToArray(); //by default we take first spells as the starting ones
         }
 
@@ -111,9 +112,12 @@ namespace HappiestDungeon
                 }
                 return; //hero cant take turn they died
             }
-            foreach (KeyValuePair<StatusEffects,int> status in Status)
+            foreach( StatusEffects effects in (StatusEffects[]) Enum.GetValues(typeof(StatusEffects))) //foreach on keyvaluepairs throws exep when modified so we iterate with all effects
             {
-                if (status.Value > 0) { Status[status.Key] = status.Value - 1; } //decrease duration by 1
+                if (Status[effects] > 0)
+                {
+                    Status[effects] = Status[effects] - 1;
+                }
             }
             //decrease duration of statuses - done
             game.ActionDescr=$"It is {Name}´s turn.\n";
@@ -146,6 +150,10 @@ namespace HappiestDungeon
                 }
                 int targetIndex = game.Input.GetChoice("Choose the target.");
                 Hero target = casted.TargetsEnemy ? enemies.HeroList[targetIndex] : allies.HeroList[targetIndex];
+                if (!target.TargetedBy(casted, this)) //target did not survive(its enemy)
+                {
+                        enemies.RemoveHero(target);
+                }
             }
             else
             {
@@ -155,14 +163,24 @@ namespace HappiestDungeon
                 Ability ability = Abilities[abilityIndex];
                 if(ability.TargetsEnemy) //enemy uses on enemy -> allies
                 {
-                    allies.HeroList[random.Next(allies.HeroList.Count)].TargetedBy(ability, this); //uses spell on random enemy
+                    Hero target = allies.HeroList[random.Next(allies.HeroList.Count)];
+                    if (!target.TargetedBy(ability, this)) //target did not survive(its enemy)
+                    {
+                        allies.RemoveHero(target);
+                    }
+                    
+                }
+                else
+                {
+                    Hero target = enemies.HeroList[random.Next(enemies.HeroList.Count)];
+                    target.TargetedBy(ability, this);
                 }
                 return;
             }
         }
         public virtual void CombatStart() //things to be done at start of combat, for now just heal if not full
         {
-            HP = Math.Min(MaxHP, HP + MaxHP >> 2); //heals for 1/4 of maxhp
+            HP = Math.Min(MaxHP, HP + (MaxHP >> 2)); //heals for 1/4 of maxhp
         }
         public bool Enemy
         {
