@@ -45,7 +45,7 @@ namespace HappiestDungeon
             }
             foreach (Tuple<StatusEffects,float> mul in TargetMultipliers) //takes care of effects on target(these are different than those on caster so we use two iterations)
             {
-                caster.Status.TryGetValue(mul.Item1, out int duration);
+                Status.TryGetValue(mul.Item1, out int duration);
                 if (duration != 0) //this enables "permanent buffs" represented with negative duration
                 {
                     multiplier *= mul.Item2; //(de)buff is active - use multiplier

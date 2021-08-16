@@ -98,9 +98,8 @@ namespace HappiestDungeon
         protected virtual bool Encounter() //returns if player survived encounter
         {
             Phase.NextPhase();
-            ActionDescr = "You arrived to the room the noise came from. You ready your blade or whatever.";
-            Graphics.UpdateData(this);
-            Graphics.Render();
+            ActionDescr = "You arrived to the room the noise came from. You ready your blade or whatever.\n";
+            //all info gets rendered in taketurn
             Heroes GenerateEnemies()
             {
                 //TODO
@@ -127,8 +126,8 @@ namespace HappiestDungeon
                 Heroes enemies = GenerateEnemies();
                 if (Combat.Fight(Allies, enemies, this))
                 {
+                    ActionDescr = "You won the fight but you need to press on, more enemies are ahead.\n"; //maybe add
                     return true;
-                    ActionDescr = "You won the fight but you need to press on, more enemies are ahead"; //maybe add
                 }
                 Outro = "You were slain. Some things were just not meant to be.";
                 return false;
@@ -145,7 +144,9 @@ namespace HappiestDungeon
         protected virtual void Setup()
         {
             Phase.NextPhase();
-            ActionDescr = "In case you want to use different abilities now is the time.";
+            ActionDescr += "In case you want to use different abilities now is the time.";
+            Graphics.UpdateData(this);
+            Graphics.Render();
             foreach (Hero hero in Allies.HeroList)
             {
                 Input.ResetChoices();

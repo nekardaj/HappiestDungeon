@@ -19,11 +19,11 @@ namespace HappiestDungeon
             while (allies.GetHeroCount() > 0 && enemies.GetHeroCount() > 0)
             {
                 Hero actingHero = TurnOrder.GetNext();
+                actingHero.TakeTurn(game, allies, enemies); //hero wont act when dead, we just need to not enqueue them again(would remove self twice)
                 if (actingHero.HP > 0)
                 //combat needs to end as soon as one side is completely dead -> hero targeted by ability should return if he survived and get removed in case they died
-                //otherwise player could be able to cast spells before game found out all enemies are dead
+                //otherwise player could be able to cast spells before game found out all enemies are dead -> implemented inside hero
                 {
-                    actingHero.TakeTurn(game, allies, enemies);
                     TurnOrder.AddHero(actingHero);
                 }
                 /*

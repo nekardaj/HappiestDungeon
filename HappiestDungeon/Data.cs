@@ -139,8 +139,8 @@ namespace HappiestDungeon
         */
         public static readonly HeroTemplate[] EnemyTemplates = new HeroTemplate[]
         {
-            new HeroTemplate(true,0,150,new Ability[] {abilities[0], abilities[1] },"Mexican Joker"),
-            new HeroTemplate(true,2,175,new Ability[] {abilities[1], abilities[2] },"ManBearPig")
+            new HeroTemplate(true,0,150,new Ability[] {abilities[0], abilities[1] },"Mexican Joker")/*,
+            new HeroTemplate(true,2,175,new Ability[] {abilities[1], abilities[2] },"ManBearPig")*/ //self healing enemy takes long to kill
         };
         //class enemy that overrides taketurn could be sol to ai
 
