@@ -8,6 +8,7 @@ namespace HappiestDungeon
     {
         public static bool Fight(Heroes allies, Heroes enemies, Game game) //processes combat and returns true if player won the fight(=game goes on)
         {
+            TurnOrder.Reset();
             foreach (Hero hero in allies.HeroList)
             {
                 hero.CombatStart(); //at start of combat allies regain some of their hp
@@ -19,6 +20,7 @@ namespace HappiestDungeon
             while (allies.GetHeroCount() > 0 && enemies.GetHeroCount() > 0)
             {
                 Hero actingHero = TurnOrder.GetNext();
+                Console.WriteLine($"{actingHero.Name}´s turn\n"); //TODO debug only
                 actingHero.TakeTurn(game, allies, enemies); //hero wont act when dead, we just need to not enqueue them again(would remove self twice)
                 if (actingHero.HP > 0)
                 //combat needs to end as soon as one side is completely dead -> hero targeted by ability should return if he survived and get removed in case they died

@@ -54,6 +54,7 @@ namespace HappiestDungeon
                 if (ability.TargetsEnemy) //enemy uses on enemy -> allies
                 {
                     Hero target = allies.HeroList[random.Next(allies.HeroList.Count)];
+                    game.ActionDescr = $"{boss.Name} used: {ability.ReturnDescription()}";
                     if (!target.TargetedBy(ability, boss)) //target did not survive(its enemy)
                     {
                         allies.RemoveHero(target);
@@ -63,6 +64,7 @@ namespace HappiestDungeon
                 else
                 {
                     Hero target = enemies.HeroList[random.Next(enemies.HeroList.Count)];
+                    game.ActionDescr = $"{boss.Name} used: {ability.ReturnDescription()}";
                     target.TargetedBy(ability, boss);
                 }
                 return;
@@ -83,7 +85,7 @@ namespace HappiestDungeon
                     {
                         new Tuple<StatusEffects, int>(StatusEffects.Armored,3),new Tuple<StatusEffects, int>(StatusEffects.Inspired,3)
                     },"Heartwarming hug"),
-                    new Ability(25, true, new List<Tuple<StatusEffects, int>>
+                    new Ability(125, true, new List<Tuple<StatusEffects, int>>
                     {
                         new Tuple<StatusEffects, int>(StatusEffects.Poisoned,3)
                     },"Love is in the air"),
