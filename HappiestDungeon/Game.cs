@@ -17,11 +17,6 @@ namespace HappiestDungeon
             private set;
         }
         Phase Phase;
-        public Action LastAction //Terminal loging reads this to properly display output based on type of action
-        {
-            get;
-            protected set;
-        }
         public string ActionDescr
         {
             get;

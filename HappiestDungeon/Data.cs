@@ -92,7 +92,15 @@ namespace HappiestDungeon
                     new Ability(45, true, new List<Tuple<StatusEffects, int>>
                     {
                         
-                    },"Wide smile")
+                    },"Wide smile"),
+                    new Ability(15, true, new List<Tuple<StatusEffects, int>>
+                    {
+                        new Tuple<StatusEffects, int>(StatusEffects.Vurneable,3),new Tuple<StatusEffects, int>(StatusEffects.Weak,3)
+                    },"Walking on sunshine"),
+                    new Ability(35, false, new List<Tuple<StatusEffects, int>>
+                    {
+                        new Tuple<StatusEffects, int>(StatusEffects.Armored,2)
+                    },"Nervous chuckle")
 
                 }, "Ironchad")
             

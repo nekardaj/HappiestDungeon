@@ -5,7 +5,7 @@ namespace HappiestDungeon
 {
     class Map
     {
-        private Node Current;
+        protected Node Current;
 
         public Map()
         {
@@ -60,6 +60,6 @@ namespace HappiestDungeon
             Current = Current.NextNodes[link];
         }
 
-        private List<Node> Nodes;
+        protected List<Node> Nodes;
     }
 }

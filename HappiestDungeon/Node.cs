@@ -9,7 +9,7 @@ namespace HappiestDungeon
     {
         const int MaxDeg=4; // maximum out(v) of a vertex (the maze is planned to be ascension so there will be around 3 ways to higher floor)
         //const is also static
-        private int links; //holds number of links from node
+        protected int links; //holds number of links from node
         public void AddLink(Node node)
         {
             NextNodes[links++] = node; //NextN[links] is the place where the next element goes
