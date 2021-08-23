@@ -188,6 +188,14 @@ namespace HappiestDungeon
         public virtual void CombatStart() //things to be done at start of combat, for now just heal if not full
         {
             HP = Math.Min(MaxHP, HP + (MaxHP >> 2)); //heals for 1/4 of maxhp
+            foreach (StatusEffects effects in (StatusEffects[])Enum.GetValues(typeof(StatusEffects))) //foreach on keyvaluepairs throws exep when modified so we iterate with all effects
+            {
+                if (Status[effects] > 0)
+                {
+                    Status[effects] = 0;
+                }
+            }
+
         }
         public bool Enemy
         {

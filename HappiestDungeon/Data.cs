@@ -77,15 +77,15 @@ namespace HappiestDungeon
             new Hero(false, 0, 200, 200, 
                 new Ability[]
                 {
-                    new Ability(20, true, new List<Tuple<StatusEffects, int>>
+                    new Ability(25, true, new List<Tuple<StatusEffects, int>>
                     { 
                         new Tuple<StatusEffects, int>(StatusEffects.Vurneable,2),new Tuple<StatusEffects, int>(StatusEffects.Weak,2)
                     },"Grin"),
-                    new Ability(20, false, new List<Tuple<StatusEffects, int>>
+                    new Ability(25, false, new List<Tuple<StatusEffects, int>>
                     {
                         new Tuple<StatusEffects, int>(StatusEffects.Armored,3),new Tuple<StatusEffects, int>(StatusEffects.Inspired,3)
                     },"Heartwarming hug"),
-                    new Ability(125, true, new List<Tuple<StatusEffects, int>>
+                    new Ability(25, true, new List<Tuple<StatusEffects, int>>
                     {
                         new Tuple<StatusEffects, int>(StatusEffects.Poisoned,3)
                     },"Love is in the air"),
@@ -93,13 +93,13 @@ namespace HappiestDungeon
                     {
                         
                     },"Wide smile"),
-                    new Ability(15, true, new List<Tuple<StatusEffects, int>>
+                    new Ability(20, true, new List<Tuple<StatusEffects, int>>
                     {
                         new Tuple<StatusEffects, int>(StatusEffects.Vurneable,3),new Tuple<StatusEffects, int>(StatusEffects.Weak,3)
                     },"Walking on sunshine"),
                     new Ability(35, false, new List<Tuple<StatusEffects, int>>
                     {
-                        new Tuple<StatusEffects, int>(StatusEffects.Armored,2)
+                        new Tuple<StatusEffects, int>(StatusEffects.Armored,3)
                     },"Nervous chuckle")
 
                 }, "Ironchad")
@@ -127,7 +127,7 @@ namespace HappiestDungeon
             ),
             new Ability
             (
-                25, true, new List<Tuple<StatusEffects, int>>
+                20, true, new List<Tuple<StatusEffects, int>>
                 {new Tuple<StatusEffects, int> (StatusEffects.Weak,2),
                     new Tuple<StatusEffects, int> (StatusEffects.Poisoned,2)
                 }, "Dirty trick"
@@ -138,6 +138,13 @@ namespace HappiestDungeon
                 {
                     new Tuple<StatusEffects, int> (StatusEffects.Vurneable,1)
                 }, "Overwhelm"
+            ),
+            new Ability
+            (
+                15, true, new List<Tuple<StatusEffects, int>>
+                {new Tuple<StatusEffects, int> (StatusEffects.Vurneable,2),
+                    new Tuple<StatusEffects, int> (StatusEffects.Poisoned,2)
+                }, "Wrath"
             )
 
         };
@@ -149,9 +156,10 @@ namespace HappiestDungeon
         */
         public static readonly HeroTemplate[] EnemyTemplates = new HeroTemplate[]
         {
-            new HeroTemplate(true,0,150,new Ability[] {abilities[0], abilities[1] },"Mexican Joker"),/*,
-            new HeroTemplate(true,2,175,new Ability[] {abilities[1], abilities[2] },"ManBearPig")*/ //self healing enemy takes long to kill
-            new HeroTemplate(true,3,125,new Ability[] {abilities[0], abilities[1] },"Kairan")
+            new HeroTemplate(true,0,150,new Ability[] {abilities[0], abilities[1] },"Mexican Joker"),
+            new HeroTemplate(true,2,165,new Ability[] {abilities[1], abilities[2], abilities[5] },"ManBearPig"), //self healing enemy takes longer to kill
+            new HeroTemplate(true,3,125,new Ability[] {abilities[0], abilities[4],abilities[3] },"Kairan"),
+            new HeroTemplate(true,4,150,new Ability[] {abilities[0], abilities[3],abilities[5] },"Baron Flynt")
         };
         //class enemy that overrides taketurn could be sol to ai
 

@@ -6,9 +6,9 @@ namespace HappiestDungeon
     {
         public virtual void Render()
         {
-            //Console.Clear();
-            //TODO debug only
-            Console.WriteLine("\n-----Render-----\n");
+            Console.Clear();
+            //debug only
+            //Console.WriteLine("\n-----Render-----\n");
             Console.WriteLine(Log);
         }
 

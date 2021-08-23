@@ -25,6 +25,12 @@ namespace HappiestDungeon
         public void Run()
         {
             GenerateAllies();
+            ActionDescr= "You have entered Happiest Dungeon, the evil here has to be banished.\nUse your abilities in turn based combat "+
+                "to shred everything that stands in your way.\n\n"+
+                "Status effects and their meaning:\nArmored: Incoming / heal damage 0.75\nInspired: Outgoing damage/ heal 1.25\n" +
+                "Poisoned: Deals nine damage every turn until the effect fades\nVurneable: Incoming damage/ heal 1.25\nWeak: Outgoing damage/ heal 0.75\n\n";
+            Graphics.UpdateData(this);
+            Graphics.Render();
             while(Update())
             {
                 //either process phase or maybe use dictionary<Phasetype,Func> and pass it in constr of Game
